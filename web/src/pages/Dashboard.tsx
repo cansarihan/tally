@@ -8,6 +8,7 @@ import { NewLink } from "../components/NewLink";
 import { PaymentTable } from "../components/PaymentTable";
 import { SharePanel } from "../components/SharePanel";
 import { ThemeToggle } from "../components/ThemeToggle";
+import { Welcome } from "../components/Welcome";
 import { StrKey } from "tally-client";
 
 import { config, explorerAccount, explorerTx, payUrl } from "../lib/config";
@@ -120,17 +121,19 @@ export function Dashboard() {
               {shortAddress(address)}
             </a>
           ) : (
-            <button
-              className="button"
-              disabled={!hasWallet}
-              onClick={() =>
-                connect()
-                  .then(setAddress)
-                  .catch((error) => setNotice({ tone: "error", message: describe(error) }))
-              }
-            >
-              {hasWallet ? "Connect wallet" : "Freighter not found"}
-            </button>
+            merchant && (
+              <button
+                className="button"
+                disabled={!hasWallet}
+                onClick={() =>
+                  connect()
+                    .then(setAddress)
+                    .catch((error) => setNotice({ tone: "error", message: describe(error) }))
+                }
+              >
+                {hasWallet ? "Connect wallet" : "Freighter not found"}
+              </button>
+            )
           )}
         </div>
       </aside>
@@ -138,8 +141,12 @@ export function Dashboard() {
       <main className="content">
         <div className="page-head">
           <div>
-            <h1>Overview</h1>
-            <p>Create a link, share it, get paid. Money goes straight to your wallet.</p>
+            <h1>{merchant ? "Overview" : "Payment links on Stellar"}</h1>
+            <p>
+              {merchant
+                ? "Create a link, share it, get paid. Money goes straight to your wallet."
+                : "Get paid with a URL. Nothing is held in between."}
+            </p>
           </div>
           {canAct && !composing && (
             <button className="button" data-kind="primary" onClick={() => setComposing(true)}>
@@ -149,11 +156,14 @@ export function Dashboard() {
         </div>
 
         {!merchant ? (
-          <div className="panel" style={{ padding: 28, textAlign: "center" }}>
-            <p style={{ margin: 0 }}>
-              Connect a Stellar wallet to create payment links and see what you have collected.
-            </p>
-          </div>
+          <Welcome
+            canConnect={hasWallet}
+            onConnect={() =>
+              connect()
+                .then(setAddress)
+                .catch((error) => setNotice({ tone: "error", message: describe(error) }))
+            }
+          />
         ) : (
           <>
             <dl className="metrics">

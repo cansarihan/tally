@@ -428,6 +428,10 @@ tbody tr:hover {
 /* ---------- controls ---------- */
 
 .button {
+  /* Anchors are used as buttons for outbound links; they must not keep the
+     underline and link colour a bare <a> gets. */
+  text-decoration: none;
+  color: var(--ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -790,4 +794,76 @@ tbody tr:hover {
 
 .tab[aria-selected="true"] .tab-count {
   color: var(--ink-2);
+}
+
+/* ---------- signed-out front door ---------- */
+
+.welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.welcome-main,
+.welcome-lookup {
+  padding: 26px 28px;
+}
+
+.welcome-main h2 {
+  font-family: var(--serif);
+  font-size: 1.875rem;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+
+.lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  max-width: 54ch;
+}
+
+.kinds {
+  list-style: none;
+  margin: 22px 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.kinds li {
+  background: var(--paper);
+  padding: 11px 14px;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 12px;
+  font-size: 0.875rem;
+}
+
+.welcome-lookup h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.welcome-lookup p {
+  font-size: 0.875rem;
+  margin: 0 0 14px;
+}
+
+@media (max-width: 900px) {
+  .welcome {
+    grid-template-columns: 1fr;
+  }
+
+  .kinds li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
 }
