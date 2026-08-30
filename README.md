@@ -25,7 +25,6 @@ customer opens /pay/42 ──▶ signs once ──▶ tokens land in the merchan
 | **App** | **<https://cansarihan.github.io/tally/>** |
 | **Testnet registry** | [`CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR`](https://stellar.expert/explorer/testnet/contract/CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR) |
 | **Wasm hash** | `293b2acc6e8b7133537c3f46defb31e4c57c89cd7a3f33e16e4021a7626efd33` |
-| **Mainnet** | _not yet deployed — see [deployment](docs/deployment.md)_ |
 
 The deployed contract is verifiably this source. All three hashes agree:
 
