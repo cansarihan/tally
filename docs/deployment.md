@@ -73,6 +73,12 @@ variables above, and deploy. `vercel.json` already rewrites every path to
 `VITE_CONTRACT_ID` and `VITE_NETWORK` as repository variables under Settings →
 Secrets and variables → Actions, and enable Pages with source "GitHub Actions".
 
+Pages has one flaw that matters for this product: it cannot rewrite unknown
+paths, only serve a copied `404.html`. A payment link therefore *renders*
+correctly but answers **HTTP 404**, and messaging apps and crawlers read that
+status when they build a link preview. Use Pages for a demo; use a host that
+can rewrite for links you actually send to customers.
+
 **Anywhere else.** `npm run build --workspace web` produces a static `web/dist`.
 The host must rewrite unknown paths to `index.html`, or payment links will 404.
 

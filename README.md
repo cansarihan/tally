@@ -22,7 +22,7 @@ customer opens /pay/42 ──▶ signs once ──▶ tokens land in the merchan
 
 | | |
 | --- | --- |
-| **App** | _deploy via Vercel or the Pages workflow, then link it here_ |
+| **App** | **<https://cansarihan.github.io/tally/>** |
 | **Testnet registry** | [`CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR`](https://stellar.expert/explorer/testnet/contract/CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR) |
 | **Wasm hash** | `293b2acc6e8b7133537c3f46defb31e4c57c89cd7a3f33e16e4021a7626efd33` |
 | **Mainnet** | _not yet deployed — see [deployment](docs/deployment.md)_ |
@@ -60,6 +60,13 @@ It follows the reader's system theme, and the choice can be overridden:
 Screenshots are the live testnet registry, seen without a wallet connected. A
 merchant's record is public on chain, so `?merchant=<address>` renders it
 read-only — handy for checking takings on a phone.
+
+> [!IMPORTANT]
+> On GitHub Pages a payment link such as `/pay/3` **loads correctly but returns
+> HTTP 404**, because Pages cannot rewrite unknown paths and only falls back to
+> a copied `404.html`. Messaging apps and crawlers read that status and treat
+> the link as broken. Host on Vercel for production: `vercel.json` rewrites
+> every path to `index.html`, so payment links answer `200`.
 
 ## One primitive, four products
 
@@ -156,7 +163,7 @@ Honest about what is done and what is not.
 | Public repository | ✅ |
 | 30+ meaningful commits | ✅ |
 | Contract on testnet, verified end to end | ✅ |
-| Live production application | ⏳ [one Vercel import away](docs/deployment.md) |
+| Live production application | ✅ on GitHub Pages; ⏳ Vercel recommended — see the note below |
 | Updated documentation | ✅ |
 | Security review | ✅ written; ⏳ awaiting sign-off |
 | Mainnet deployment | ⏳ [runbook ready](docs/deployment.md) |
