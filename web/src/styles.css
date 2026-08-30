@@ -68,6 +68,35 @@
   }
 }
 
+/* An explicit choice has to win in both directions, so the same tokens are
+   applied again outside the media query. */
+:root[data-theme="dark"] {
+    --paper: #171a20;
+    --canvas: #0e1116;
+    --sunken: #12151a;
+    --line: #272c35;
+    --line-soft: #1f242c;
+
+    --ink: #e8ebef;
+    --ink-2: #a2aab6;
+    --ink-3: #737c89;
+
+    --brand: #7ea8d6;
+    --brand-ink: #0e1116;
+    --brand-wash: #1a2532;
+
+    --positive: #4cb391;
+    --positive-wash: #14251f;
+    --pending: #d0a052;
+    --pending-wash: #241d11;
+    --negative: #d97070;
+    --negative-wash: #241414;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+    color-scheme: dark;
+  }
+
 * {
   box-sizing: border-box;
 }
@@ -655,5 +684,64 @@ tbody tr:hover {
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- sharing ---------- */
+
+.share {
+  padding: 16px 18px 18px;
+  margin-top: 12px;
+}
+
+.share-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.share-head h2 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.share-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.share-qr {
+  text-align: center;
+}
+
+.share-qr svg {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: block;
+}
+
+.share-qr .hint {
+  max-width: 170px;
+  margin-top: 8px;
+}
+
+.share-copy .field {
+  margin-bottom: 10px;
+}
+
+.share-copy input {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 620px) {
+  .share-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
 }

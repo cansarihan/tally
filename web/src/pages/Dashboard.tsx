@@ -5,6 +5,8 @@ import { LinkTable } from "../components/LinkTable";
 import { Mark } from "../components/Mark";
 import { NewLink } from "../components/NewLink";
 import { PaymentTable } from "../components/PaymentTable";
+import { SharePanel } from "../components/SharePanel";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { StrKey } from "tally-client";
 
 import { config, explorerAccount, explorerTx, payUrl } from "../lib/config";
@@ -38,6 +40,7 @@ export function Dashboard() {
   const [hasWallet, setHasWallet] = useState(true);
   const [view, setView] = useState<tally.MerchantView>();
   const [selected, setSelected] = useState<Link>();
+  const [sharing, setSharing] = useState<Link>();
   const [payments, setPayments] = useState<readonly Payment[]>([]);
   const [composing, setComposing] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -83,18 +86,6 @@ export function Dashboard() {
     }
   }
 
-  async function copy(link: Link) {
-    const url = payUrl(link.id);
-    try {
-      await navigator.clipboard.writeText(url);
-      setNotice({ tone: "ok", message: `Payment link copied: ${url}` });
-    } catch {
-      // Clipboard access is refused in some contexts; showing the URL still
-      // lets the merchant copy it by hand.
-      setNotice({ tone: "ok", message: url });
-    }
-  }
-
   return (
     <div className="app">
       <aside className="sidebar">
@@ -113,6 +104,7 @@ export function Dashboard() {
         </nav>
 
         <div className="sidebar-foot">
+          <ThemeToggle />
           <span className="pill" data-state={config.network === "mainnet" ? "live" : "expired"}>
             {config.network}
           </span>
@@ -206,6 +198,14 @@ export function Dashboard() {
               </p>
             )}
 
+            {sharing && (
+              <SharePanel
+                url={payUrl(sharing.id)}
+                reference={`#${String(sharing.id)}`}
+                onClose={() => setSharing(undefined)}
+              />
+            )}
+
             <section className="section">
               <div className="section-head">
                 <h2>Payment links</h2>
@@ -215,7 +215,7 @@ export function Dashboard() {
                 links={view?.links ?? []}
                 now={now}
                 busy={busy}
-                onCopy={(link) => void copy(link)}
+                onCopy={setSharing}
                 onClose={(link) =>
                   address && void run("Link closed", () => tally.closeLink(address, link.id))
                 }

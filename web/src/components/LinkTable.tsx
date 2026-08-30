@@ -113,7 +113,7 @@ function Row({ link, now, busy, onCopy, onClose, onSelect, readOnly }: RowProps)
       <td className="num">
         <span className="actions" onClick={(event) => event.stopPropagation()}>
           <button className="button" data-kind="ghost" onClick={() => onCopy(link)}>
-            Copy
+            Share
           </button>
           {state === "live" && !readOnly && (
             <button
