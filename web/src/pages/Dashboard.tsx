@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Link } from "tally-client";
 
+import { LinkFilter, applyFilter, countByState, type Filter } from "../components/LinkFilter";
 import { LinkTable } from "../components/LinkTable";
 import { Mark } from "../components/Mark";
 import { NewLink } from "../components/NewLink";
@@ -41,6 +42,7 @@ export function Dashboard() {
   const [view, setView] = useState<tally.MerchantView>();
   const [selected, setSelected] = useState<Link>();
   const [sharing, setSharing] = useState<Link>();
+  const [filter, setFilter] = useState<Filter>("all");
   const [payments, setPayments] = useState<readonly Payment[]>([]);
   const [composing, setComposing] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -209,10 +211,14 @@ export function Dashboard() {
             <section className="section">
               <div className="section-head">
                 <h2>Payment links</h2>
-                <span className="faint">{view?.links.length ?? 0} shown</span>
+                <LinkFilter
+                  value={filter}
+                  counts={countByState(view?.links ?? [], now)}
+                  onChange={setFilter}
+                />
               </div>
               <LinkTable
-                links={view?.links ?? []}
+                links={applyFilter(view?.links ?? [], filter, now)}
                 now={now}
                 busy={busy}
                 onCopy={setSharing}
