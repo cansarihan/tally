@@ -5,6 +5,7 @@ import { Mark } from "../components/Mark";
 import { explorerAccount, explorerTx } from "../lib/config";
 import { formatAmount, parseAmount, relativeTime, shortAddress } from "../lib/format";
 import { useNow, useToken } from "../lib/hooks";
+import { remaining } from "../lib/remaining";
 import { STATE_LABELS, linkState } from "../lib/status";
 import * as tally from "../lib/tally";
 import { connect, currentAddress, walletAvailable } from "../lib/wallet";
@@ -67,6 +68,7 @@ export function Pay({ id }: { readonly id: bigint }) {
   }
 
   const state = linkState(link, now);
+  const left = remaining(link);
   const fixed = link.amount > 0n;
   const due = fixed ? formatAmount(link.amount, token.decimals) : undefined;
 
@@ -149,6 +151,14 @@ export function Pay({ id }: { readonly id: bigint }) {
                 </span>
               </dd>
             </div>
+            {state === "live" && left !== undefined && (
+              <div className="detail">
+                <dt>Remaining</dt>
+                <dd className={left <= 3 ? "" : "muted"}>
+                  {left} of {link.max_payments}
+                </dd>
+              </div>
+            )}
             {state === "live" && (
               <div className="detail">
                 <dt>Expires</dt>
