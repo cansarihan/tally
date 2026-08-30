@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- A tally: four strokes and the fifth laid across them. Counting, which
+       is the whole job — every payment is one more mark. -->
+  <g stroke="#1B3A5C" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M7 7v18M13 7v18M19 7v18M25 7v18" />
+    <path d="M4.5 24 L27.5 8" stroke="#0B6E4F" />
+  </g>
+</svg>
