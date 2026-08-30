@@ -1,0 +1,50 @@
+name: deploy web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build --workspace tally-client
+
+      - name: Build the app
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_NETWORK: ${{ vars.VITE_NETWORK || 'testnet' }}
+          VITE_CONTRACT_ID: ${{ vars.VITE_CONTRACT_ID }}
+        run: npm run build --workspace web
+
+      # Pages serves static files only, so /pay/42 would 404 on a fresh load
+      # without a copy of index.html to fall back to.
+      - run: cp web/dist/index.html web/dist/404.html
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+      - id: deploy
+        uses: actions/deploy-pages@v4
