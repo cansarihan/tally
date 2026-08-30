@@ -29,14 +29,23 @@ deployed, so every mainnet metric below is unmeasurable rather than zero.
 | Feedback responses | 0 | — | form not yet published |
 | Social followers | *not started* | — | — |
 
-Reproduce the on-chain rows:
+Reproduce every on-chain row with one command:
 
 ```bash
-CONTRACT=CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR
-stellar contract invoke --id $CONTRACT --source you --network testnet -- link_count
-stellar contract invoke --id $CONTRACT --source you --network testnet -- \
-  totals_of --merchant <MERCHANT_ADDRESS>
+./scripts/metrics.sh testnet \
+  CCKFGICF5BOWRXXWC6KSGZQ3UIL6BT23ZO3RIMLNQA7M5XNB6PZT5WKR \
+  <MERCHANT_ADDRESS>
 ```
+
+```
+links in registry  : 4
+merchant totals    : {"links":4,"payments":5}
+distinct payers    : 2
+volume             : "3025000000" (CDLZ…CYSC)
+```
+
+Distinct payers has no counter on chain, so the script derives it by walking
+the payments of every link the merchant owns.
 
 ### What shipped
 
