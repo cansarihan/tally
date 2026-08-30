@@ -13,6 +13,8 @@ interface LinkTableProps {
   readonly onSelect: (link: Link) => void;
   /** True when the viewer supplied an address but cannot sign for it. */
   readonly readOnly?: boolean;
+  /** Said when there is nothing to show, which differs by why. */
+  readonly emptyMessage: string;
 }
 
 export function LinkTable({
@@ -23,6 +25,7 @@ export function LinkTable({
   onClose,
   onSelect,
   readOnly,
+  emptyMessage,
 }: LinkTableProps) {
   return (
     <div className="panel">
@@ -43,7 +46,7 @@ export function LinkTable({
           <tbody>
             {links.length === 0 ? (
               <tr className="empty-row">
-                <td colSpan={8}>No links yet. Create one to start taking payments.</td>
+                <td colSpan={8}>{emptyMessage}</td>
               </tr>
             ) : (
               links.map((link) => (
@@ -66,7 +69,7 @@ export function LinkTable({
   );
 }
 
-interface RowProps extends Omit<LinkTableProps, "links"> {
+interface RowProps extends Omit<LinkTableProps, "links" | "emptyMessage"> {
   readonly link: Link;
 }
 

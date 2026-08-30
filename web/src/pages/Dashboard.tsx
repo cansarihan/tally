@@ -218,6 +218,13 @@ export function Dashboard() {
                 />
               </div>
               <LinkTable
+                emptyMessage={
+                  (view?.links.length ?? 0) === 0
+                    ? canAct
+                      ? "No links yet. Create one and share it to take your first payment."
+                      : "This merchant has not created any payment links."
+                    : `Nothing here is ${filter}.`
+                }
                 links={applyFilter(view?.links ?? [], filter, now)}
                 now={now}
                 busy={busy}
