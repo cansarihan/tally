@@ -51,7 +51,15 @@ asking, how much, and nothing else.
   <img src="docs/assets/checkout.png" alt="The Tally checkout page showing a 40 XLM payment request" width="420">
 </p>
 
-Screenshots are the live testnet registry, seen without a wallet connected.
+It follows the reader's system theme, and the choice can be overridden:
+
+<p align="center">
+  <img src="docs/assets/dashboard-dark.png" alt="The same dashboard in dark mode" width="100%">
+</p>
+
+Screenshots are the live testnet registry, seen without a wallet connected. A
+merchant's record is public on chain, so `?merchant=<address>` renders it
+read-only — handy for checking takings on a phone.
 
 ## One primitive, four products
 
@@ -111,6 +119,7 @@ Deploy your own registry:
 | [User guide](docs/user-guide.md) | For merchants and for the people paying them |
 | [Growth report](docs/growth.md) | The monthly numbers, with the commands to reproduce them |
 | [User feedback](docs/onboarding/README.md) | Form spec and how a user is counted as verified |
+| [Technical note](docs/blog/a-payment-contract-that-holds-nothing.md) | Why this contract holds nothing, and what that costs |
 
 ## Testing
 
@@ -157,7 +166,7 @@ Honest about what is done and what is not.
 | Monthly growth report | ✅ [first period recorded](docs/growth.md) |
 | Product improvement commit links | ✅ |
 | Social media growth, update posts | ⏳ |
-| Community contribution | ⏳ |
+| Community contribution | ✅ [written](docs/blog/a-payment-contract-that-holds-nothing.md); ⏳ awaiting publication |
 
 ## Licence
 
